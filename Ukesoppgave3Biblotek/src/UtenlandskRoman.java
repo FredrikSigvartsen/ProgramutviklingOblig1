@@ -1,3 +1,6 @@
+
+import java.io.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,5 +32,22 @@ public class UtenlandskRoman extends Roman {
         return super.toString() + "\n   Språk: " + språk;
     }
     
-    
+    @Override
+        public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
+        while(true){
+        språk = inputFil.readUTF();    
+        super.lesObjektFraFil(inputFil);
+        }
+    }
+
+    @Override
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
+         //< Skriver datafeltenes verdier til fil. >
+        
+        while(true){
+            outputFil.writeUTF(språk);
+            super.skrivObjektTilFil(outputFil);
+        }
+    }    
 }
