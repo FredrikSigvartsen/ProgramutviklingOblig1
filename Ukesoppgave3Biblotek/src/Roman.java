@@ -8,6 +8,8 @@
  *
  * @author fredr_000
  */
+import java.io.*;
+
 public abstract class Roman extends Bok {
     
     private String sjanger;
@@ -31,4 +33,22 @@ public abstract class Roman extends Bok {
         return super.toString() + "\n   Sjanger: " + sjanger;
     }
     
+        @Override
+    public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
+        while(true){
+        sjanger = inputFil.readUTF();    
+        super.lesObjektFraFil(inputFil);
+        }
+    }
+
+    @Override
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
+         //< Skriver datafeltenes verdier til fil. >
+        
+        while(true){
+            outputFil.writeUTF(sjanger);
+            super.skrivObjektTilFil(outputFil);
+        }
+    }
 }

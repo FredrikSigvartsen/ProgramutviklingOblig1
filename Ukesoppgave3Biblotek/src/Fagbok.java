@@ -8,6 +8,9 @@
  *
  * @author fredr_000
  */
+
+import java.io.*;
+
 public class Fagbok extends Bok {
     
     private String fagomraade;
@@ -29,6 +32,25 @@ public class Fagbok extends Bok {
     @Override
     public String toString() {
         return super.toString() + "\n   Kategori: Fagbok\n  Fagområde: " + fagomraade;
+    }
+    
+        @Override
+    public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
+        while(true){
+        fagomraade = inputFil.readUTF();    
+        super.lesObjektFraFil(inputFil);
+        }
+    }
+
+    @Override
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
+         //< Skriver datafeltenes verdier til fil. >
+        
+        while(true){
+            outputFil.writeUTF(fagomraade);
+            super.skrivObjektTilFil(outputFil);
+        }
     }
     
 }
