@@ -24,6 +24,7 @@ public class BokVindu extends JFrame {
             registrerUtenlandskRoman, visBokregister;
     private JTextArea utskriftsomraade;
     private Bokregister bokRegisteret;
+    private String filen = null;
     
         public BokVindu(Bokregister b){ // Bruker bokregister som vi definerer i driverklassen
             
@@ -96,8 +97,20 @@ public class BokVindu extends JFrame {
             utskriftsomraade.setEditable(false);
             setVisible(true);
             setSize(500,650);
+            filen = "src/Bokregister.data";
+            lesFraFil();
+            
         } // end of constructor
     
+        public void skrivTilFil(){
+            
+            bokRegisteret.skrivTilFil(filen);
+        }
+
+        public void lesFraFil(){
+            bokRegisteret.lesFraFil( filen );
+            visRegister();
+        }
         public void nyFagbok(){
             sjekkFelter();
             

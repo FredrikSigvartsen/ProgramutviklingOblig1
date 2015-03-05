@@ -32,22 +32,31 @@ public class NorskRoman extends Roman {
     }
     
     @Override
-    public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+    public boolean lesObjektFraFil( DataInputStream inputFil ){
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        while(true){
+        try{
         maalform = inputFil.readUTF();    
         super.lesObjektFraFil(inputFil);
         }
+    catch ( FileNotFoundException fnfe ){
+      return false;
+    }
+    catch ( EOFException eofe ){
+      return false;
+    }
+    catch ( IOException ioe ){
+      return false;
+    }
+    
+      return true;
     }
 
     @Override
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
-        
-        while(true){
+            outputFil.writeUTF("NorskRoman");
             outputFil.writeUTF(maalform);
             super.skrivObjektTilFil(outputFil);
-        }
     }
     
 }

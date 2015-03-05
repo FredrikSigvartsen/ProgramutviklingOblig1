@@ -1,6 +1,8 @@
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /*
@@ -39,26 +41,40 @@ public class Skolebok extends Bok  {
     @Override
     public String toString() {
         return super.toString() + "\n   Kategori: Skolebok\n   Klassetrinn: "+ klassetrinn
-                + "\n    Skolefag: " + skolefag;
+                + "\n   Skolefag: " + skolefag;
     }
     
-    public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+    public boolean lesObjektFraFil( DataInputStream inputFil ){
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        while(true){
+        
+        try( DataInputStream fil = new DataInputStream(inputFil ) ){
+        inputFil.readUTF();
         skolefag = inputFil.readUTF();
         klassetrinn = inputFil.readInt();
         super.lesObjektFraFil(inputFil);
         }
+          
+    catch ( FileNotFoundException fnfe ){
+      return false;
+    }
+    catch ( EOFException eofe ){
+      return false;
+    }
+    catch ( IOException ioe ){
+      return false;
+    }
+    
+      return true;
     }
 
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
         
-        while(true){
-            outputFil.writeUTF(skolefag);
-            outputFil.writeInt( klassetrinn);
-            super.skrivObjektTilFil(outputFil);
-        }
+        
+        outputFil.writeUTF("Skolebok");
+        outputFil.writeUTF(skolefag);
+        outputFil.writeInt( klassetrinn);
+        super.skrivObjektTilFil(outputFil);
     }
     
 }

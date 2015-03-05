@@ -56,20 +56,33 @@ public abstract class Bok {
     @Override
     public String toString(){
         return 
-                    "   Forfatter: +" + forfatter 
+                    "   Forfatter: " + forfatter 
                 + "\n   Tittel: " + tittel
                 + "\n   Antall sider: " + sideantall + 
                   "\n   Pris: " + tilDesimal.format(pris);
     }
 
-    public boolean lesObjektFraFil( DataInputStream inputFil )throws IOException{
+    public boolean lesObjektFraFil( DataInputStream inputFil ){
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        while(true){
-        forfatter = inputFil.readUTF();
-        tittel = inputFil.readUTF();
-        sideantall = inputFil.readInt();
-        pris = inputFil.readDouble();
+        
+        try{     // new FileInputStream( )
+            forfatter = inputFil.readUTF();
+            tittel = inputFil.readUTF();
+            sideantall = inputFil.readInt();
+            pris = inputFil.readDouble();
+        }// end of try 
+      
+        catch ( FileNotFoundException fnfe ){
+          return false;
         }
+        catch ( EOFException eofe ){
+          return false;
+        }
+        catch ( IOException ioe ){
+            return false;
+        }
+    
+      return true;
     }
 
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
@@ -78,6 +91,5 @@ public abstract class Bok {
         outputFil.writeUTF( tittel );
         outputFil.writeInt( sideantall );
         outputFil.writeDouble( pris );
-        
     }
 }
