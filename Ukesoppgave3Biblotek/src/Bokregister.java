@@ -56,78 +56,62 @@ public class Bokregister
   }
   
   
-  public void skrivTilFil( String filOutput ){
+  public void skrivTilFil( String filOutput ) {
       
       
      try( DataOutputStream fil = new DataOutputStream(
 			                    new FileOutputStream( filOutput ) ) ) {
       
-         Bok løper = første;
+      Bok løper = første;
+      
       while ( løper != null ){
         løper.skrivObjektTilFil( fil );
         løper = løper.neste;
-      }
-    }
+      } // end of while
+    }// end of try 
     catch ( IOException ioe ){
       visMelding("Kunne ikke skrive til fil.");
     }
-  }
+  } // end of method skrivTilFil()
 
   public void lesFraFil( String filInput ){
 
-    
     try( DataInputStream fil = new DataInputStream(
-                                            new FileInputStream( filInput ) ) ){
-      
-      String bok = "";
-      //Bok løper = første;
-      while(true){
-      bok = fil.readUTF();
+                                            new FileInputStream( filInput ) ) )
+    {
      
-        Bok ny = null;
-          
-        if( bok.equals("Skolebok")){                // HVIS SKOLEBOK
+    Bok ny = null;
+    String bok = "";
+    
+    while(true){ 
+        
+        bok = fil.readUTF();
+        
+        //\\ HVIS SKOLEBOK
+        if( bok.equalsIgnoreCase("Skolebok"))                
                 ny = new Skolebok();
-            if(ny.lesObjektFraFil(fil)){
-                settInn(ny);
-            }
-            else
-                visMelding("Bok ikke satt inn i registeret, på grunn av lesefeil fra fil.");
-        }
+        //\\ HVIS FAGBOK 
+        else if( bok.equalsIgnoreCase("Fagbok"))         
+             ny = new Fagbok();
         
-        else if( bok.equals("Fagbok")){             // HVIS FAGBOK 
-            ny = new Fagbok();
-            
-            if(ny.lesObjektFraFil(fil)){
-                System.out.println("NÅ HAR VI LEST BOK:" + bok );
-                settInn(ny);
-            }
-            else
-                visMelding("Bok ikke satt inn i registeret, på grunn av lesefeil fra fil.");
-        }
         
-        else if( bok.equalsIgnoreCase("NorskRoman")){         // HVIS NORSK ROMAN 
+        //\\ HVIS NORSK ROMAN
+        else if( bok.equalsIgnoreCase("NorskRoman"))         
             ny = new NorskRoman();
-            if(ny.lesObjektFraFil(fil))
-            settInn(ny);
-            else
-                visMelding("Bok ikke satt inn i registeret, på grunn av lesefeil fra fil.");
-         }
-        else if( bok.equalsIgnoreCase("UtenlandskRoman")){    // HVIS UTENLANDSK ROMAN
+        
+         //\\ HVIS UTENLANDSK ROMAN
+        else if( bok.equalsIgnoreCase("UtenlandskRoman"))   
             ny = new UtenlandskRoman();
-            if(ny.lesObjektFraFil(fil))
+        
+        else return;
+        
+        ny.lesObjektFraFil(fil);
                 settInn(ny);
-            else
-                visMelding("Bok ikke satt inn i registeret, på grunn av lesefeil fra fil.");
-            
-         }
-      }    
-//    løper = løper.neste;
-//      } // end of while
-    }// end of try 
+        }// end of while 
+    }// end of try
+   
     catch(EOFException e){
-        System.out.println("Har nå nådd slutten av filen");
-        return;
+      return;
     }
     catch ( IOException ioe ){
       visMelding( "Får ikke lest fil " + filInput );
@@ -135,6 +119,7 @@ public class Bokregister
     }
     catch( Exception e){
       visMelding("En type for exception");
+      return;
     }
     
   }// end of method lesFraFil  

@@ -32,46 +32,43 @@ public class Fagbok extends Bok {
     @Override
     public String toString() {
         return super.toString() + "\n   Kategori: Fagbok\n   Fagområde: " + fagomraade;
-    }
+    }// end of method toString()
     
-        @Override
-    public boolean lesObjektFraFil( DataInputStream inputFil ){
-         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-//        boolean stemmer = true;
-//        while(stemmer){
+   
+    
+    @Override
+    public boolean lesObjektFraFil( DataInputStream inputFil ){ 
+         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. 
         
-            
-            try{
-                super.lesObjektFraFil(inputFil);
-                fagomraade = inputFil.readUTF();    
-                System.out.println("Leser:" +fagomraade);
-            }
-            catch ( FileNotFoundException fnfe ){
-               return false;
-            }
-            catch ( EOFException eofe ){
-               return false;
-            }
-             catch ( IOException ioe ){
-               return false;
-            }
+        try{
+            super.lesObjektFraFil(inputFil);
+            fagomraade = inputFil.readUTF();
+        }
+        catch ( FileNotFoundException fnfe ){
+            return false;
+        }
+        catch ( EOFException eofe ){
+            return false;
+        }
+        catch ( IOException ioe ){
+            return false;
+        }
             
     return true;
-    }
+    
+    } // end of method lesObjektFraFil
+    
+    
     @Override
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
         
         
-            outputFil.writeUTF("Fagbok");
-            System.out.println("Skriver:fagbok");
-            
-            super.skrivObjektTilFil(outputFil);
-            
-            outputFil.writeUTF(fagomraade);
-            System.out.println("Skriver:" +fagomraade);
+        outputFil.writeUTF("Fagbok");
+        super.skrivObjektTilFil(outputFil);
+        outputFil.writeUTF(fagomraade);
             
         
-    }
+    }// end of method skrivObjektTilFil
     
 }

@@ -30,33 +30,32 @@ public class UtenlandskRoman extends Roman {
     @Override
     public String toString() {
         return super.toString() + "\n   Språk: " + språk;
-    }
+    } // end of method toString()
     
     @Override
-        public boolean lesObjektFraFil( DataInputStream inputFil ){
-         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        try{
-        språk = inputFil.readUTF();    
-        super.lesObjektFraFil(inputFil);
+    public boolean lesObjektFraFil( DataInputStream inputFil ){
+     //  Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. 
+        try{    
+            super.lesObjektFraFil(inputFil);
+            språk = inputFil.readUTF();
         }
-    catch ( FileNotFoundException fnfe ){
-      return false;
-    }
-    catch ( EOFException eofe ){
-      return false;
-    }
-    catch ( IOException ioe ){
-      return false;
-    }
-    
-      return true;
-    }
+        catch ( FileNotFoundException fnfe ){
+            return false;
+        }
+        catch ( EOFException eofe ){
+            return false;
+        }
+        catch ( IOException ioe ){
+            return false;
+        }
+    return true;
+    }// end of method lesObjektFraFil()
 
     @Override
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
-         //< Skriver datafeltenes verdier til fil. >
+         // Skriver datafeltenes verdier til fil. 
             outputFil.writeUTF("UtenlandskRoman");
-            outputFil.writeUTF(språk);
             super.skrivObjektTilFil(outputFil);
-    }    
+            outputFil.writeUTF(språk);
+    }// end of method skrivObjektTilFil()    
 }

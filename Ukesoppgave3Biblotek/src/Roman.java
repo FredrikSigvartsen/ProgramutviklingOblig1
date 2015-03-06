@@ -36,9 +36,9 @@ public abstract class Roman extends Bok {
         @Override
     public boolean lesObjektFraFil( DataInputStream inputFil ){
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        try{
-            sjanger = inputFil.readUTF();    
+        try{    
             super.lesObjektFraFil(inputFil);
+            sjanger = inputFil.readUTF();
         }
         catch ( FileNotFoundException fnfe ){
             return false;
@@ -56,8 +56,9 @@ public abstract class Roman extends Bok {
     @Override
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
-            outputFil.writeUTF(sjanger);
+            
             super.skrivObjektTilFil(outputFil);
+            outputFil.writeUTF(sjanger);
         
     }
 }

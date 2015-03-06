@@ -59,24 +59,17 @@ public abstract class Bok {
                     "   Forfatter: " + forfatter 
                 + "\n   Tittel: " + tittel
                 + "\n   Antall sider: " + sideantall + 
-                  "\n   Pris: " + tilDesimal.format(pris);
+                  "\n   Pris: " + pris;
     }
 
-    public boolean lesObjektFraFil( DataInputStream inputFil ){
+     public boolean lesObjektFraFil( DataInputStream inputFil ) {
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        
-        try{     // new FileInputStream( )
+
+        try{    
             forfatter = inputFil.readUTF();
-            System.out.println("Leser:" +forfatter);
-            
             tittel = inputFil.readUTF();
-            System.out.println("Leser:" +tittel);
-            
             sideantall = inputFil.readInt();
-            System.out.println("Leser:" +sideantall);
-            
             pris = inputFil.readDouble();
-            System.out.println("Leser:" +pris);
         }// end of try 
       
         catch ( FileNotFoundException fnfe ){
@@ -90,17 +83,14 @@ public abstract class Bok {
         }
     
       return true;
-    }
+    }  // end of method lesObjektFraFil
+
 
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
         outputFil.writeUTF( forfatter );
-        System.out.println("Skriver:" +forfatter);
         outputFil.writeUTF( tittel );
-        System.out.println("Skriver:" +tittel);
         outputFil.writeInt( sideantall );
-        System.out.println("Skriver:" +sideantall);
         outputFil.writeDouble( pris );
-        System.out.println("Skriver:" +pris);
     }
 }

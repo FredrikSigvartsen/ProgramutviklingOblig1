@@ -47,34 +47,31 @@ public class Skolebok extends Bok  {
     public boolean lesObjektFraFil( DataInputStream inputFil ){
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
         
-        try( DataInputStream fil = new DataInputStream(inputFil ) ){
-        inputFil.readUTF();
-        skolefag = inputFil.readUTF();
-        klassetrinn = inputFil.readInt();
-        super.lesObjektFraFil(inputFil);
+        try{
+          super.lesObjektFraFil(inputFil);
+          skolefag = inputFil.readUTF();
+          klassetrinn = inputFil.readInt();
         }
-          
-    catch ( FileNotFoundException fnfe ){
-      return false;
-    }
-    catch ( EOFException eofe ){
-      return false;
-    }
-    catch ( IOException ioe ){
-      return false;
-    }
-    
-      return true;
-    }
+        catch ( FileNotFoundException fnfe ){
+          return false;
+        }
+        catch ( EOFException eofe ){
+          return false;
+        }
+        catch ( IOException ioe ){
+          return false;
+        }
+    return true;
+    } // end of method lesObjektFraFil
 
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
         
         
         outputFil.writeUTF("Skolebok");
+        super.skrivObjektTilFil(outputFil);
         outputFil.writeUTF(skolefag);
         outputFil.writeInt( klassetrinn);
-        super.skrivObjektTilFil(outputFil);
     }
     
 }
