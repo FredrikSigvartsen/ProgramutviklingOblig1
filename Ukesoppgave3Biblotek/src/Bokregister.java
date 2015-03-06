@@ -13,7 +13,7 @@ import java.io.*;
 
 public class Bokregister
 {
-  private Bok første;
+  private Bok forste;
 
     public Bokregister() {
     }
@@ -21,34 +21,34 @@ public class Bokregister
   //registrerer et bokobjekt
   public void settInn( Bok ny ){
     //Setter inn Bok-objektet ny i lista av Bok-objekter.
-      Bok løper = første;
+      Bok loper = forste;
       if(ny == null)
           return;
-      if(første == null){
-          første = ny;
+      if(forste == null){
+          forste = ny;
           return;
       }
           
       
-      while(løper.neste != null)
-          løper = løper.neste;
+      while(loper.neste != null)
+          loper = loper.neste;
       
-      løper.neste = ny;
+      loper.neste = ny;
   } // end of method settInn()
 
   //utskrift av innhold i bokliste
-  public void skrivListe( JTextArea bøker ){  //Gjennomløper lista av Bok-objekter og tilføyer i tekstområdet
-                                              //bøker informasjonen som er lagret om hver enkelt bok.
-      bøker.setText("");
-      if(første == null){
-          bøker.setText("Ingen bøker i bibloteket");
+  public void skrivListe( JTextArea boker ){  //Gjennomloper lista av Bok-objekter og tilfoyer i tekstområdet
+                                              //boker informasjonen som er lagret om hver enkelt bok.
+      boker.setText("");
+      if(forste == null){
+          boker.setText("Ingen boker i bibloteket");
       }
       
-      Bok løper = første;
-      while(løper != null){
-          bøker.append("\n" + løper.toString() + "\n\n -----------------------"
+      Bok loper = forste;
+      while(loper != null){
+          boker.append("\n" + loper.toString() + "\n\n -----------------------"
                   + "-------------------------");
-          løper = løper.neste;
+          loper = loper.neste;
       }
   }// end of method skrivListe
   
@@ -59,11 +59,11 @@ public class Bokregister
      try( DataOutputStream fil = new DataOutputStream(
 			                    new FileOutputStream( filOutput ) ) ) {
       
-      Bok løper = første;
+      Bok loper = forste;
       
-      while ( løper != null ){
-        løper.skrivObjektTilFil( fil );
-        løper = løper.neste;
+      while ( loper != null ){
+        loper.skrivObjektTilFil( fil );
+        loper = loper.neste;
       } // end of while
     }// end of try 
     catch ( IOException ioe ){
