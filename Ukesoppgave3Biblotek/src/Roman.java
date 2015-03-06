@@ -51,14 +51,12 @@ public abstract class Roman extends Bok {
         }
     
       return true;
-    }
+    }// end of method lesObjektFraFil()
 
     @Override
-    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
-         //< Skriver datafeltenes verdier til fil. >
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{ // Skriver datafeltenes verdier til fil. >
             
             super.skrivObjektTilFil(outputFil);
             outputFil.writeUTF(sjanger);
-        
-    }
+    } // end of method skrivObjektTilFil()
 }

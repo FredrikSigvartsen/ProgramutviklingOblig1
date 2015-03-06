@@ -34,12 +34,9 @@ public class Fagbok extends Bok {
         return super.toString() + "\n   Kategori: Fagbok\n   Fagområde: " + fagomraade;
     }// end of method toString()
     
-   
+   @Override
+    public boolean lesObjektFraFil( DataInputStream inputFil ){      //Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. 
     
-    @Override
-    public boolean lesObjektFraFil( DataInputStream inputFil ){ 
-         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. 
-        
         try{
             super.lesObjektFraFil(inputFil);
             fagomraade = inputFil.readUTF();
@@ -53,22 +50,15 @@ public class Fagbok extends Bok {
         catch ( IOException ioe ){
             return false;
         }
-            
     return true;
-    
     } // end of method lesObjektFraFil
     
     
     @Override
-    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
-         //< Skriver datafeltenes verdier til fil. >
-        
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{  // Skriver datafeltenes verdier til fil. >
         
         outputFil.writeUTF("Fagbok");
         super.skrivObjektTilFil(outputFil);
         outputFil.writeUTF(fagomraade);
-            
-        
     }// end of method skrivObjektTilFil
-    
-}
+} // end of class Fagbok

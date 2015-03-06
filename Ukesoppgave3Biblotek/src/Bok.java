@@ -60,10 +60,9 @@ public abstract class Bok {
                 + "\n   Tittel: " + tittel
                 + "\n   Antall sider: " + sideantall + 
                   "\n   Pris: " + pris;
-    }
+    } // end of toString()
 
-     public boolean lesObjektFraFil( DataInputStream inputFil ) {
-         //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
+     public boolean lesObjektFraFil( DataInputStream inputFil ) {  // Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
 
         try{    
             forfatter = inputFil.readUTF();
@@ -86,8 +85,7 @@ public abstract class Bok {
     }  // end of method lesObjektFraFil
 
 
-    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
-         //< Skriver datafeltenes verdier til fil. >
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{  //  Skriver datafeltenes verdier til fil. >
         outputFil.writeUTF( forfatter );
         outputFil.writeUTF( tittel );
         outputFil.writeInt( sideantall );

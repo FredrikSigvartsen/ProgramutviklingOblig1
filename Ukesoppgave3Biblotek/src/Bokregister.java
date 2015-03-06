@@ -19,8 +19,7 @@ public class Bokregister
     }
 
   //registrerer et bokobjekt
-  public void settInn( Bok ny )
-  {
+  public void settInn( Bok ny ){
     //Setter inn Bok-objektet ny i lista av Bok-objekter.
       Bok løper = første;
       if(ny == null)
@@ -35,13 +34,11 @@ public class Bokregister
           løper = løper.neste;
       
       løper.neste = ny;
-  }
+  } // end of method settInn()
 
   //utskrift av innhold i bokliste
-  public void skrivListe( JTextArea bøker )
-  {
-    //Gjennomløper lista av Bok-objekter og tilføyer i tekstområdet
-    //bøker informasjonen som er lagret om hver enkelt bok.
+  public void skrivListe( JTextArea bøker ){  //Gjennomløper lista av Bok-objekter og tilføyer i tekstområdet
+                                              //bøker informasjonen som er lagret om hver enkelt bok.
       bøker.setText("");
       if(første == null){
           bøker.setText("Ingen bøker i bibloteket");
@@ -53,10 +50,10 @@ public class Bokregister
                   + "-------------------------");
           løper = løper.neste;
       }
-  }
+  }// end of method skrivListe
   
   
-  public void skrivTilFil( String filOutput ) {
+  public void skrivTilFil( String filOutput ) {   // skriver hver variabel/felt til fil.  
       
       
      try( DataOutputStream fil = new DataOutputStream(
@@ -74,12 +71,10 @@ public class Bokregister
     }
   } // end of method skrivTilFil()
 
-  public void lesFraFil( String filInput ){
+  public void lesFraFil( String filInput ){ // Leser fra fil, og oppretter riktig type objekt. 
 
     try( DataInputStream fil = new DataInputStream(
-                                            new FileInputStream( filInput ) ) )
-    {
-     
+                                            new FileInputStream( filInput ) ) ){
     Bok ny = null;
     String bok = "";
     
@@ -90,10 +85,10 @@ public class Bokregister
         //\\ HVIS SKOLEBOK
         if( bok.equalsIgnoreCase("Skolebok"))                
                 ny = new Skolebok();
+        
         //\\ HVIS FAGBOK 
         else if( bok.equalsIgnoreCase("Fagbok"))         
              ny = new Fagbok();
-        
         
         //\\ HVIS NORSK ROMAN
         else if( bok.equalsIgnoreCase("NorskRoman"))         
@@ -102,11 +97,12 @@ public class Bokregister
          //\\ HVIS UTENLANDSK ROMAN
         else if( bok.equalsIgnoreCase("UtenlandskRoman"))   
             ny = new UtenlandskRoman();
-        
         else return;
         
-        ny.lesObjektFraFil(fil);
-                settInn(ny);
+        if(ny.lesObjektFraFil(fil))
+            settInn(ny);
+        else
+            visMelding("Feil ved innsetting av bok i registeret. ");
         }// end of while 
     }// end of try
    
@@ -118,14 +114,13 @@ public class Bokregister
       return;
     }
     catch( Exception e){
-      visMelding("En type for exception");
+      visMelding("FEIL I PROGRAM!");
       return;
     }
     
   }// end of method lesFraFil  
   
-  
   public void visMelding(String m){
             JOptionPane.showMessageDialog(null, m); 
-        }
+        } // end of method visMelding()
 }

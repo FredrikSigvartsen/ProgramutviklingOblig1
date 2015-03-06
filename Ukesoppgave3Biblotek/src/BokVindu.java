@@ -105,14 +105,16 @@ public class BokVindu extends JFrame {
         public void skrivTilFil(){
             
             bokRegisteret.skrivTilFil(filen);
-        }
+        } // end of method skrivTilFil()
 
         public void lesFraFil(){
             bokRegisteret.lesFraFil( filen );
             visRegister();
-        }
+        }// end of method lesFraFil()
+        
         public void nyFagbok(){
-            sjekkFelter();
+            if(!sjekkFelter())
+                return;
             
             if(fagomraadeFelt.getText().trim().equals("")){
                 utskriftsomraade.setText("Fyll inn hva slags fagområde fagboken tilhører.");
@@ -136,7 +138,8 @@ public class BokVindu extends JFrame {
         } // end of method nyFagbok()
         
         public void nySkolebok(){
-            sjekkFelter();
+            if(!sjekkFelter())
+                return;
             
             if(klassetrinnFelt.getText().trim().equals("")){
                 visMelding("Fyll inn klasstrinn ");
@@ -166,7 +169,8 @@ public class BokVindu extends JFrame {
         } // end of method nySkolebok()
         
         public void nyNorskRoman(){
-            sjekkFelter();
+            if(!sjekkFelter())
+                return;
             
             if(sjangerFelt.getText().trim().equals("")){
                 visMelding("Fyll inn sjanger ");
@@ -202,10 +206,12 @@ public class BokVindu extends JFrame {
             catch(NumberFormatException nfe){
                 visMelding("Feil tallformat");
             }
+        
         } // end of method nyNorskRoman()
         
         public void nyUtenlandskRoman(){
-              sjekkFelter();
+              if(!sjekkFelter())
+                return;
             
             if(sjangerFelt.getText().trim().equals("")){
                 visMelding("Fyll inn sjanger ");
@@ -238,23 +244,24 @@ public class BokVindu extends JFrame {
         } // end of method visRegister()
         
         
-        public void sjekkFelter(){
+        public boolean sjekkFelter(){
           if(forfatterFelt.getText().trim().equals("")){
-              utskriftsomraade.setText("Fyll inn navn på forfatter");
-              return;
+              visMelding("OBS! Fyll inn navn på forfatter");
+              return false;
           }
           else if(tittelFelt.getText().trim().equals("")){
-              utskriftsomraade.setText("Fyll inn tittel på boken");
-              return;
+              visMelding("OBS! Fyll inn tittel på boken");
+              return false;
           }
           else if(sideAntFelt.getText().trim().equals("")){
-              utskriftsomraade.setText("Fyll inn antall sider på boken");
-              return;
+              visMelding("OBS! Fyll inn antall sider på boken");
+              return false;
           }
           else if(prisFelt.getText().trim().equals("")){
-              utskriftsomraade.setText("Fyll inn bokens pris");
-              return;
+              visMelding("OBS! Fyll inn bokens pris");
+              return false;
           }
+          return true;
         } // end of method sjekkFelter()
         public void visMelding(String m){
             JOptionPane.showMessageDialog(null, m); 
