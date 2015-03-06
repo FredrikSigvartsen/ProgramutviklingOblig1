@@ -97,7 +97,7 @@ public class BokVindu extends JFrame {
             utskriftsomraade.setEditable(false);
             setVisible(true);
             setSize(500,650);
-            filen = "src/Bokregister.data";
+            filen = "Bokregister.data";
             lesFraFil();
 
         } // end of constructor
