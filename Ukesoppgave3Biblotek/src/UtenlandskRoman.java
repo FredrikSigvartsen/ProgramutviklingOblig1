@@ -12,31 +12,31 @@ import java.io.*;
  * @author fredr_000
  */
 public class UtenlandskRoman extends Roman {
-    
-    private String språk;
-    
+
+    private String spraak;
+
     public UtenlandskRoman(){
-        
+
     }
-    public UtenlandskRoman(String forfatter, String tittel, int sideantall, double pris, String sjanger, String språk){
+    public UtenlandskRoman(String forfatter, String tittel, int sideantall, double pris, String sjanger, String spraak){
         super(forfatter, tittel, sideantall, pris, sjanger);
-        this.språk = språk;
+        this.spraak = spraak;
     }
 
-    public String getSpråk() {
-        return språk;
+    public String getSpraak() {
+        return spraak;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n   Språk: " + språk;
+        return super.toString() + "\n   Spraak: " + spraak;
     } // end of method toString()
-    
+
     @Override
-    public boolean lesObjektFraFil( DataInputStream inputFil ){ //  Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. 
-        try{    
+    public boolean lesObjektFraFil( DataInputStream inputFil ){ //  Leser verdier fra fil og lagrer dem i de tilhorende datafeltene.
+        try{
             super.lesObjektFraFil(inputFil);
-            språk = inputFil.readUTF();
+            spraak = inputFil.readUTF();
         }
         catch ( FileNotFoundException fnfe ){
             return false;
@@ -51,9 +51,9 @@ public class UtenlandskRoman extends Roman {
     }// end of method lesObjektFraFil()
 
     @Override
-    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{ // Skriver datafeltenes verdier til fil. 
+    public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{ // Skriver datafeltenes verdier til fil.
             outputFil.writeUTF("UtenlandskRoman");
             super.skrivObjektTilFil(outputFil);
-            outputFil.writeUTF(språk);
-    }// end of method skrivObjektTilFil()    
+            outputFil.writeUTF(spraak);
+    }// end of method skrivObjektTilFil()
 }

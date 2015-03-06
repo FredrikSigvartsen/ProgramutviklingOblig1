@@ -11,29 +11,29 @@
 import java.io.*;
 
 public class NorskRoman extends Roman {
-    
+
     private String maalform;
-    
+
     public NorskRoman(){
-        
+
     }
-    public NorskRoman(String forfatter, String tittel, int sideantall, double pris, String sjanger, String målform){
+    public NorskRoman(String forfatter, String tittel, int sideantall, double pris, String sjanger, String maalform){
         super(forfatter, tittel, sideantall, pris, sjanger);
-        this.maalform = målform;
+        this.maalform = maalform;
     }
 
-    public String getMålform() {
+    public String getMaalform() {
         return maalform;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n   Målform: " + maalform;
+        return super.toString() + "\n   Maalform: " + maalform;
     }
-    
+
     @Override
-    public boolean lesObjektFraFil( DataInputStream inputFil ){ // Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
-        try{    
+    public boolean lesObjektFraFil( DataInputStream inputFil ){ // Leser verdier fra fil og lagrer dem i de tilhorende datafeltene. >
+        try{
             super.lesObjektFraFil(inputFil);
             maalform = inputFil.readUTF();
         }
