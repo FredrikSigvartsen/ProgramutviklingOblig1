@@ -67,9 +67,16 @@ public abstract class Bok {
         
         try{     // new FileInputStream( )
             forfatter = inputFil.readUTF();
+            System.out.println("Leser:" +forfatter);
+            
             tittel = inputFil.readUTF();
+            System.out.println("Leser:" +tittel);
+            
             sideantall = inputFil.readInt();
+            System.out.println("Leser:" +sideantall);
+            
             pris = inputFil.readDouble();
+            System.out.println("Leser:" +pris);
         }// end of try 
       
         catch ( FileNotFoundException fnfe ){
@@ -79,7 +86,7 @@ public abstract class Bok {
           return false;
         }
         catch ( IOException ioe ){
-            return false;
+          return false;
         }
     
       return true;
@@ -88,8 +95,12 @@ public abstract class Bok {
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
          //< Skriver datafeltenes verdier til fil. >
         outputFil.writeUTF( forfatter );
+        System.out.println("Skriver:" +forfatter);
         outputFil.writeUTF( tittel );
+        System.out.println("Skriver:" +tittel);
         outputFil.writeInt( sideantall );
+        System.out.println("Skriver:" +sideantall);
         outputFil.writeDouble( pris );
+        System.out.println("Skriver:" +pris);
     }
 }

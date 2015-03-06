@@ -39,22 +39,24 @@ public class Fagbok extends Bok {
          //< Leser verdier fra fil og lagrer dem i de tilhørende datafeltene. >
 //        boolean stemmer = true;
 //        while(stemmer){
-        try{
-            fagomraade = inputFil.readUTF();    
-            super.lesObjektFraFil(inputFil);
-        }
-          
-    catch ( FileNotFoundException fnfe ){
-      return false;
-    }
-    catch ( EOFException eofe ){
-      return false;
-    }
-    catch ( IOException ioe ){
-      return false;
-    }
-    
-      return true;
+        
+            
+            try{
+                super.lesObjektFraFil(inputFil);
+                fagomraade = inputFil.readUTF();    
+                System.out.println("Leser:" +fagomraade);
+            }
+            catch ( FileNotFoundException fnfe ){
+               return false;
+            }
+            catch ( EOFException eofe ){
+               return false;
+            }
+             catch ( IOException ioe ){
+               return false;
+            }
+            
+    return true;
     }
     @Override
     public void skrivObjektTilFil( DataOutputStream outputFil ) throws IOException{
@@ -62,8 +64,13 @@ public class Fagbok extends Bok {
         
         
             outputFil.writeUTF("Fagbok");
-            outputFil.writeUTF(fagomraade);
+            System.out.println("Skriver:fagbok");
+            
             super.skrivObjektTilFil(outputFil);
+            
+            outputFil.writeUTF(fagomraade);
+            System.out.println("Skriver:" +fagomraade);
+            
         
     }
     
