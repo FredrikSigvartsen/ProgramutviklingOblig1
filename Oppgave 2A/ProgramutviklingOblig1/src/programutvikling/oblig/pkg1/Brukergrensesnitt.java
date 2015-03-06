@@ -6,18 +6,18 @@ import java.io.*;
 
 public class Brukergrensesnitt extends JFrame {
 
-    private JTextField medlemNr, registreringsNr, navn, adresse, merke, årsmodell, lengde, motor, farge;
+    private JTextField medlemNr, registreringsNr, navn, adresse, merke, aarsmodell, lengde, motor, farge;
     private JLabel labelMedlemNr, labelRegistreringsNr, labelNavn, labelAdresse, labelMerke, labelÅrsmodell, labelLengde, labelMotor, labelFarge;
     private JTextArea area;
-    private JButton regEier, regBåt, skrivReg, slettBåt, slettEier, skrivEier, regEierskifte;
-    private JRadioButton eier, båt, slettB, slettE, eierskifte, alt;
+    private JButton regEier, regBaat, skrivReg, slettBaat, slettEier, skrivEier, regEierskifte;
+    private JRadioButton eier, baat, slettB, slettE, eierskifte, alt;
     private ButtonGroup group;
     private Lytter lytter;
-    private Båteierregister register;
+    private Baateierregister register;
 
     public Brukergrensesnitt() {
 
-        super("Båtregister");
+        super("Baatregister");
         lesFraFil();
         this.register = register;
         
@@ -28,7 +28,7 @@ public class Brukergrensesnitt extends JFrame {
         navn = new JTextField(20);
         adresse = new JTextField(20);
         merke = new JTextField(10);
-        årsmodell = new JTextField(4);
+        aarsmodell = new JTextField(4);
         lengde = new JTextField(6);
         motor = new JTextField(6);
         farge = new JTextField(10);
@@ -48,9 +48,9 @@ public class Brukergrensesnitt extends JFrame {
         
         eier = new JRadioButton("Registrer eier");
         eier.addActionListener(lytter);
-        båt = new JRadioButton("Registrer båt");
-        båt.addActionListener(lytter);
-        slettB = new JRadioButton("Slett båt");
+        baat = new JRadioButton("Registrer baat");
+        baat.addActionListener(lytter);
+        slettB = new JRadioButton("Slett baat");
         slettB.addActionListener(lytter);
         slettE = new JRadioButton("Slett eier");
         slettE.addActionListener(lytter);
@@ -61,7 +61,7 @@ public class Brukergrensesnitt extends JFrame {
         alt.setSelected(true);
         group = new ButtonGroup();
         group.add(eier);
-        group.add(båt);
+        group.add(baat);
         group.add(slettB);
         group.add(slettE);
         group.add(eierskifte);
@@ -69,12 +69,12 @@ public class Brukergrensesnitt extends JFrame {
         
         regEier = new JButton("Registrer eier");
         regEier.addActionListener(lytter);
-        regBåt = new JButton("Registrer båt");
-        regBåt.addActionListener(lytter);
+        regBaat = new JButton("Registrer baat");
+        regBaat.addActionListener(lytter);
         skrivReg = new JButton("Vis register");
         skrivReg.addActionListener(lytter);
-        slettBåt = new JButton("Slett båt");
-        slettBåt.addActionListener(lytter);
+        slettBaat = new JButton("Slett baat");
+        slettBaat.addActionListener(lytter);
         slettEier = new JButton("Slett eier");
         slettEier.addActionListener(lytter);
         skrivEier = new JButton("Eier info");
@@ -85,7 +85,7 @@ public class Brukergrensesnitt extends JFrame {
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
         c.add(eier);
-        c.add(båt);
+        c.add(baat);
         c.add(slettB);
         c.add(slettE);
         c.add(eierskifte);
@@ -101,7 +101,7 @@ public class Brukergrensesnitt extends JFrame {
         c.add(labelMerke);
         c.add(merke);
         c.add(labelÅrsmodell);
-        c.add(årsmodell);
+        c.add(aarsmodell);
         c.add(labelLengde);
         c.add(lengde);
         c.add(labelMotor);
@@ -110,9 +110,9 @@ public class Brukergrensesnitt extends JFrame {
         c.add(farge);
         c.add(new JScrollPane(area));
         c.add(regEier);
-        c.add(regBåt);
+        c.add(regBaat);
         c.add(regEierskifte);
-        c.add(slettBåt);
+        c.add(slettBaat);
         c.add(slettEier);
         c.add(skrivReg);
         c.add(skrivEier);
@@ -130,7 +130,7 @@ public class Brukergrensesnitt extends JFrame {
         {
             utfil.writeObject(register);
             utfil.writeInt(Eier.getNr());
-            utfil.writeInt(Båt.getNr());
+            utfil.writeInt(Baat.getNr());
         }
         catch(NotSerializableException nse) {
             visFeilmelding("nse exception");
@@ -144,24 +144,24 @@ public class Brukergrensesnitt extends JFrame {
         try(ObjectInputStream innfil = new ObjectInputStream(
                 new FileInputStream("src/liste.data")))
         {
-            register = (Båteierregister) innfil.readObject();
+            register = (Baateierregister) innfil.readObject();
             Eier.setNr(innfil.readInt());
-            Båt.setNr(innfil.readInt());
+            Baat.setNr(innfil.readInt());
         }
         catch(ClassNotFoundException cnfe) {
             area.setText(cnfe.getMessage());
             area.append("\nOppretter tom liste.");
-            register = new Båteierregister();
+            register = new Baateierregister();
         }
         catch(FileNotFoundException fnfe) {
             area.setText(fnfe.getMessage());
             area.setText("Finner ikke datafil, oppretter tom liste");
-            register = new Båteierregister();
+            register = new Baateierregister();
         }
         catch(IOException ioe) {
             area.setText(ioe.getMessage());
             area.setText("Innlesningsfeil. Oppretter tom liste.");
-            register = new Båteierregister();
+            register = new Baateierregister();
         }
     }
     
@@ -179,25 +179,25 @@ public class Brukergrensesnitt extends JFrame {
         }
     }
     
-    public void registrerBåt() {
+    public void registrerBaat() {
         String merke = this.merke.getText();
         String farge = this.farge.getText();
         
         
-        if(merke.trim().equals("") || farge.trim().equals("") || this.årsmodell.getText().trim().equals("") || this.lengde.getText().trim().equals("") 
+        if(merke.trim().equals("") || farge.trim().equals("") || this.aarsmodell.getText().trim().equals("") || this.lengde.getText().trim().equals("") 
                 || this.motor.getText().trim().equals("") || this.medlemNr.getText().trim().equals("") ){
             area.setText("Vennligst fyll inn alle feltene!");
         }
         else{
-            int årsmodell = Integer.parseInt(this.årsmodell.getText());
+            int aarsmodell = Integer.parseInt(this.aarsmodell.getText());
             int lengde = Integer.parseInt(this.lengde.getText());
             int motor = Integer.parseInt(this.motor.getText());
             int medlemsNr = Integer.parseInt(this.medlemNr.getText());
-            Båt ny = new Båt(merke, årsmodell, lengde, motor, farge);
-            Eier båteier = register.finnEier(medlemsNr);
-            if(båteier != null) {
-                båteier.setBåt(ny);
-                area.setText("Båten er registrert med regNr: " + ny.getRegNr() + 
+            Baat ny = new Baat(merke, aarsmodell, lengde, motor, farge);
+            Eier baateier = register.finnEier(medlemsNr);
+            if(baateier != null) {
+                baateier.setBaat(ny);
+                area.setText("Baaten er registrert med regNr: " + ny.getRegNr() + 
                              "\nEieren har medlemsNr: " + medlemsNr);
             } else {
                 area.setText("Eier med medlemsNr: " + medlemsNr + " ble ikke funnet i registeret");
@@ -220,22 +220,22 @@ public class Brukergrensesnitt extends JFrame {
         }
     }
     
-    public void slettBåt() {
+    public void slettBaat() {
         if(this.registreringsNr.getText().trim().equals("")){
             area.setText("Venligst fyll ut alle feltene");
         }
         else{
             int regNr = Integer.parseInt(this.registreringsNr.getText());
-            Båt båt = register.finnBåt(regNr);
+            Baat baat = register.finnBaat(regNr);
             boolean ok;
-            if(båt == null) {
-                area.setText("Fant ingen båt med regNr: " + regNr);
+            if(baat == null) {
+                area.setText("Fant ingen baat med regNr: " + regNr);
             } else {
-                ok = register.fjernBåt(båt);
+                ok = register.fjernBaat(baat);
                 if(ok)
-                    area.setText("Båten ble slettet");
+                    area.setText("Baaten ble slettet");
                 else
-                    area.setText("Båten ble ikke slettet");                      
+                    area.setText("Baaten ble ikke slettet");                      
             }
         }
     }
@@ -275,7 +275,7 @@ public class Brukergrensesnitt extends JFrame {
         medlemNr.setText("");
         registreringsNr.setText("");
         merke.setText("");
-        årsmodell.setText("");
+        aarsmodell.setText("");
         lengde.setText("");
         motor.setText("");
         farge.setText("");
@@ -288,14 +288,14 @@ public class Brukergrensesnitt extends JFrame {
             if(e.getSource() == regEier) {
                 registrerEier();
                 blankUtAlleFelt();
-            } else if (e.getSource() == regBåt) {
-                registrerBåt();
+            } else if (e.getSource() == regBaat) {
+                registrerBaat();
                 blankUtAlleFelt();
             } else if (e.getSource() == skrivReg) {
                 visRegister();
                 blankUtAlleFelt();
-            } else if (e.getSource() == slettBåt) {
-                slettBåt();
+            } else if (e.getSource() == slettBaat) {
+                slettBaat();
                 blankUtAlleFelt();
             } else if (e.getSource() == slettEier) {
                 slettEier();
@@ -312,108 +312,108 @@ public class Brukergrensesnitt extends JFrame {
                 medlemNr.setEditable(false);
                 registreringsNr.setEditable(false);
                 merke.setEditable(false);
-                årsmodell.setEditable(false);
+                aarsmodell.setEditable(false);
                 lengde.setEditable(false);
                 farge.setEditable(false);
                 motor.setEditable(false);
                 
                 regEier.setEnabled(true);
-                regBåt.setEnabled(false);
+                regBaat.setEnabled(false);
                 regEierskifte.setEnabled(false);
                 skrivReg.setEnabled(false);
                 skrivEier.setEnabled(false);
                 slettEier.setEnabled(false);
-                slettBåt.setEnabled(false);
-            } else if (e.getSource() == båt) {
+                slettBaat.setEnabled(false);
+            } else if (e.getSource() == baat) {
                 navn.setEditable(false);
                 adresse.setEditable(false);
                 medlemNr.setEditable(true);
                 registreringsNr.setEditable(false);
                 merke.setEditable(true);
-                årsmodell.setEditable(true);
+                aarsmodell.setEditable(true);
                 lengde.setEditable(true);
                 farge.setEditable(true);
                 motor.setEditable(true);
                 
                 regEier.setEnabled(false);
-                regBåt.setEnabled(true);
+                regBaat.setEnabled(true);
                 regEierskifte.setEnabled(false);
                 skrivReg.setEnabled(false);
                 skrivEier.setEnabled(false);
                 slettEier.setEnabled(false);
-                slettBåt.setEnabled(false);
+                slettBaat.setEnabled(false);
             } else if (e.getSource() == slettB) {
                 navn.setEditable(false);
                 adresse.setEditable(false);
                 medlemNr.setEditable(false);
                 registreringsNr.setEditable(true);
                 merke.setEditable(false);
-                årsmodell.setEditable(false);
+                aarsmodell.setEditable(false);
                 lengde.setEditable(false);
                 farge.setEditable(false);
                 motor.setEditable(false);
                 
                 regEier.setEnabled(false);
-                regBåt.setEnabled(false);
+                regBaat.setEnabled(false);
                 regEierskifte.setEnabled(false);
                 skrivReg.setEnabled(false);
                 skrivEier.setEnabled(false);
                 slettEier.setEnabled(false);
-                slettBåt.setEnabled(true);
+                slettBaat.setEnabled(true);
             } else if (e.getSource() == slettE) {
                 navn.setEditable(false);
                 adresse.setEditable(false);
                 medlemNr.setEditable(true);
                 registreringsNr.setEditable(false);
                 merke.setEditable(false);
-                årsmodell.setEditable(false);
+                aarsmodell.setEditable(false);
                 lengde.setEditable(false);
                 farge.setEditable(false);
                 motor.setEditable(false);
                 
                 regEier.setEnabled(false);
-                regBåt.setEnabled(false);
+                regBaat.setEnabled(false);
                 regEierskifte.setEnabled(false);
                 skrivReg.setEnabled(false);
                 skrivEier.setEnabled(false);
                 slettEier.setEnabled(true);
-                slettBåt.setEnabled(false);
+                slettBaat.setEnabled(false);
             } else if (e.getSource() == eierskifte) {
                 navn.setEditable(false);
                 adresse.setEditable(false);
                 medlemNr.setEditable(true);
                 registreringsNr.setEditable(true);
                 merke.setEditable(false);
-                årsmodell.setEditable(false);
+                aarsmodell.setEditable(false);
                 lengde.setEditable(false);
                 farge.setEditable(false);
                 motor.setEditable(false);
                 
                 regEier.setEnabled(false);
-                regBåt.setEnabled(false);
+                regBaat.setEnabled(false);
                 regEierskifte.setEnabled(true);
                 skrivReg.setEnabled(false);
                 skrivEier.setEnabled(false);
                 slettEier.setEnabled(false);
-                slettBåt.setEnabled(false);
+                slettBaat.setEnabled(false);
             } else if (e.getSource() == alt) {
                 navn.setEditable(true);
                 adresse.setEditable(true);
                 medlemNr.setEditable(true);
                 registreringsNr.setEditable(true);
                 merke.setEditable(true);
-                årsmodell.setEditable(true);
+                aarsmodell.setEditable(true);
                 lengde.setEditable(true);
                 farge.setEditable(true);
                 motor.setEditable(true);
                 
                 regEier.setEnabled(true);
-                regBåt.setEnabled(true);
+                regBaat.setEnabled(true);
                 regEierskifte.setEnabled(true);
                 skrivReg.setEnabled(true);
                 skrivEier.setEnabled(true);
                 slettEier.setEnabled(true);
-                slettBåt.setEnabled(true);
+                slettBaat.setEnabled(true);
             }
         }
     }
